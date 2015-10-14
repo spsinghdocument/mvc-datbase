@@ -1,0 +1,77 @@
+function SelectOption() {         
+            $('#lblitemname').show();
+            $('#txtval').show();      
+            var u_rl;
+            var v_check = $("#cmboption").val();
+
+            if (v_check == "COUNTRYSEARCH") {
+                $('#lblitemname').text("ENTER COUNTRY");
+                u_rl = "/Purchase/SearchData"
+
+            }
+            else if (v_check == "CHALLANNOSEARCH") {
+                $('#lblitemname').text("ENTER CHALLAN NO.");
+                u_rl = "/ChallanOut/ChallanSearch"
+
+            }
+            else if (v_check == "SIMNOSEARCH") {
+                $('#lblitemname').text("ENTER SIM NO.");
+                u_rl = "/ChallanOut/SimnoSearch"
+
+            }
+            else if (v_check == "EXECUTIVECODESEARCH") {
+                $('#lblitemname').text("ENTER EXECUTIVE NAME");
+                u_rl = "/UserName/usercodeautosearch"
+            }
+            else if (v_check == "DATESEARCH") {
+                $('#lblitemname').hide();
+                $('#txtval').hide();
+                return;               
+            }
+
+
+            $("#txtval").autocomplete({          
+             
+                source: function (request, response) {
+                   
+                    $.ajax({
+                        url: u_rl,
+                        data: "{ 'empName': '" + request.term + "' }",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+
+                            response($.map(data, function (item) {
+                                if (v_check == "COUNTRYSEARCH") {
+                                    return {
+                                        value: item.country
+                                    }
+                                }
+                                else if (v_check == "CHALLANNOSEARCH") {
+                                    return {
+                                        value: item.challanno
+                                    }
+                                }
+                                else if (v_check == "SIMNOSEARCH") {
+                                    return {
+                                        value: item.simno
+                                    }
+                                }
+
+                                else if (v_check == "EXECUTIVECODESEARCH") {
+                                    return {
+                                        value: item.User_Code
+                                    }
+                                }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        }

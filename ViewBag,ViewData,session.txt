@@ -1,0 +1,48 @@
+        public ActionResult Index()
+        {
+            return View(db.Table1.ToList());
+        }
+..........
+@model IEnumerable<MvcApplication4.EF.Table1>
+
+@foreach (var e in Model)
+     { 
+         @e.name
+    <input type="radio" value="@e.name"  name="@e.name"/>
+     }
+
+.............................................................ViewBag...................
+ public ActionResult Index()
+        {
+      ViewBag.sp = db.Table1.ToList();
+            return View();
+
+        }
+.....................................
+  @foreach (var e in ViewBag.sp)
+     { 
+      <option>@e.lastname</option>
+     }
+...............................................................ViewData..............
+ public ActionResult Index()
+        {
+      ViewData["sp"] = db.Table1.ToList();
+            return View();
+
+        }
+........................
+ @foreach (var e in (List<MvcApplication4.EF.Table1>)ViewData["sp"])
+     {
+<option>@e.lastname</option>
+     }
+...................................................................................................Session.............
+Session["sp"] = db.Table1.ToList();
+......
+ @foreach (var e in (List<MvcApplication4.EF.Table1>)Session["sp"])
+..................................................................................USING.........
+ ViewData["sp"] = db.Table1.ToList();
+.......
+@using MvcApplication4.EF
+
+....
+ @foreach (var e in (List<Table1>)Session["sp"])

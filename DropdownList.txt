@@ -1,0 +1,54 @@
+@Html.DropDownList("Gender", new List<SelectListItem> {
+new SelectListItem{Text="Male",Value="Male"},
+new SelectListItem{Text="Female",Value="Female"},
+},"Select Gender")
+
+
+..................................DATABASE...............................................................
+   public ActionResult Index()
+        {
+            arvindEntities db = new arvindEntities();
+             ViewBag.df = new SelectList(db.Table1,"id","name");
+     return View();
+        }
+.....................
+@model IEnumerable<MvcApplication10.EF.Table1>
+
+@Html.DropDownList("df", "....Select....")
+
+.........................................................OR........................................
+  ViewData["so"] = new SelectList(db.Table1, "id", "name");
+@Html.DropDownList("ProfessionGuid", (SelectList)ViewData["so"])
+.................................................................................................................jquery...............................
+ $(document).ready(function () { getCountry(); });
+
+    function getCountry() {
+        $.post('/ChallanOut/fillcombo', null,
+         function (data) { chkGetCountry(data); }).error(function (data) { chkGetCountry(data); });
+    }
+    function chkGetCountry(abc) {
+        var data = "";
+        data += "<option value=-1 >Select</option>";
+        for (var it in abc) {
+            data += "<option value=" + abc[it].CountryName + " >" +
+                 abc[it].CountryName + "</option>";
+        }
+
+        $('#cmbCountry').html(data);
+    }
+............................
+<select id="cmbCountry" style = " Width:64%">
+           
+            </select>
+.............................................................control............................
+ [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult fillcombo()
+        {
+          return  Json(acicls.GetCountry(), JsonRequestBehavior.AllowGet);
+        }
+...................................................................................................................simple............................................
+ <select id="txtPriority" runat="server" style = " Width:64%"  >
+            <option value="-1">...SELECT...</option>
+             <option>NORMAL</option>
+              <option>URJENT</option>
+             </select>      

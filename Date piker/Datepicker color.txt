@@ -1,0 +1,49 @@
+ $(function () {
+        $("#txtdate").datepicker({ dateFormat: 'dd-MM-yy', minDate: 0, maxDate: "+60D", numberOfMonths: 2 });
+    });
+............................................................................
+  $(function () {
+        $("#txtdate").datepicker({ dateFormat: 'dd-MM-yy', minDate: 0, maxDate: "+60D", numberOfMonths: 2,changeMonth: true, changeYear: true });
+    });
+........................................................................
+.ui-datepicker .ui-datepicker-header {
+	position: relative;
+	padding: .2em 0;
+	background-color:Blue;
+}
+......................................................................................................
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -8px;
+	top: 50%;
+	margin-top: -8px;
+	background-color:green;
+}
+............................................................................................................
+
+.ui-datepicker table {
+	width: 100%;
+	font-size: .9em;
+	border-collapse: collapse;
+	margin: 0 0 .4em;
+		background-color:green;
+}
+...................................................................................
+.ui-datepicker th {
+	padding: .7em .3em;
+	text-align: center;
+	font-weight: bold;
+	border: 0;
+	background-color:green;
+	
+}
+...........................................................................
+.ui-datepicker td {
+	border: 0;
+	padding: 1px;
+	background-color:green;
+}
+......................................................................................

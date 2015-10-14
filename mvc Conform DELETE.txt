@@ -1,0 +1,24 @@
+  function vovcherDelete() {
+        var retval = confirm("Do you want to delete ?");
+        if (retval == true) {
+            debugger;
+            var voucherid = $("#txtvoucherno").val();
+
+            $.post("/VoucherEntry/AllVoucherDelete", { voucherid: voucherid }, function (data) { vouDel2(data) }).error(function (data) { vouDel2(data) });
+            return true;
+        }
+        else {
+
+            alert("User does not want to continue !");
+            return false;
+        
+        
+        }
+
+
+    }
+    function vouDel2(abc) {
+      
+        alert(abc);
+    
+    }

@@ -1,0 +1,11 @@
+   function spExcel2() {
+         $("#tableExel4").table2excel({
+
+             exclude: ".noExl",
+             name: "Excel Document Name",
+             title: "CUSTOMER A/C NO SEARCH"
+         });
+
+     }
+............................................
+<script src="../../Scripts/jquery.table2excel.js" type="text/javascript"></script>

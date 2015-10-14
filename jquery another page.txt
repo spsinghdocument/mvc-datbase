@@ -1,0 +1,79 @@
+    var GData = "";
+..................................
+ function spp() {
+ $.post('/ActivePostpond/ActivePostpondd', null, function (data) { chkACTIVEPOSPOND(data); }).error(function (data) { chkACTIVEPOSPOND(data); });
+        
+    }
+    function chkACTIVEPOSPOND(abc) {
+        Gdata = abc;
+        MainDivT(Gdata, 0)
+
+    };
+function MainDivT(xyz, eid) {
+
+   var tab = "";
+        tab += "<table border='2'>";
+        tab += "<tr>";
+        tab += "<td id=spChequeNot style='width:250px;background-color:#33CCFF;color:navy;'>SIM NO.</td>";
+        tab += "<td id=spacountnot  style='width:200px;background-color:#33CCFF;color:navy;'> DATE </td>";
+ for (var em in xyz) {
+
+  tab += "<tr >";
+                tab += "<td class=spCustomerNametd style='width:150px;background-color:silver;color:navy;'>" + xyz[em].Sim_No + "</td>";
+         tab += "<td class=spCustomerNametd style='width:150px;background-color:silver;color:navy;'> a </td>";
+ tab += "<td align=center class=spCustomerNametd style='width:150px;background-color:silver;color:navy;'>" + "<input  id='btnEdit' onclick=Dialog(" + xyz[em].Sim_No + ",'a','" + xyz[em].customeracno + "','" + xyz[em].cafno + "','" + xyz[em].User_Name + "','" + xyz[em].country + "','" + dat2 + "','" + dat + "','" + dat1 + "','" + xyz[em].Executive_Code + "','a') type='button' value='REMARKS' /></td>";
+
+     tab += "</tr>";
+                }
+       
+        tab += "</table>";
+        $('#ActiveTable').html(tab);
+
+    }
+...........................................................................
+
+ function Dialog(a,b) {
+
+ var tab = "";
+        tab += "<table>";
+
+        tab += "<tr>";
+        tab += "<td style='width:200px;'>SIM NO.</td>";
+        tab += "<td style='width:200px;'>"
+           + "<input id=txtDATE type=text readonly=readonly value=" + a + " /></td>";
+        tab += "</tr>";
+               tab += "<tr>";
+                tab += "<td style='width:200px;'>DATE</td>";
+                tab += "<td style='width:200px;'>"
+                    + "<input id=txtSIMNO readonly=readonly type=text value=" + b + " /></td>";
+                 tab += "</tr>";
+
+        tab += "</table>";
+        $('#dia').html(tab);
+...............................................................................................
+ $("#dia").dialog({
+            modal: true,
+            width: 'auto',
+
+            height: 630,
+            title: " ACTIVE POSPONDS REMARKS",
+            resizable: false,
+            position: 'center',
+
+            open: function () {
+                $(".ui-dialog-titlebar-close").show();
+             
+
+            }
+
+        });
+    }
+.................................................................
+ function dilogCancile() {
+
+        $("#dia").dialog('close');
+
+    }
+.................................................
+
+<div id="dia"></div>

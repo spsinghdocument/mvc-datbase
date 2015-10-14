@@ -1,0 +1,7 @@
+ controller
+.....................................
+
+ public string Index()
+        {
+            return typeof(Controller).Assembly.GetName().Version.ToString();
+        }

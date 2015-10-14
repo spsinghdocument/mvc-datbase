@@ -1,0 +1,35 @@
+...........model......class......
+
+public List<Table1> tlist { get; set; }
+        public Table1 tsengle { get; set; }
+........................................................controler............
+using MvcApplication9.Models;
+namespace MvcApplication9.Controllers
+
+ [HttpGet]
+        public ActionResult save()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult save(ins a)
+        {
+
+            arvindEntities db = new arvindEntities();
+            db.AddToTable1(a.tsengle);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+......................................................................VIEW..........
+ @using (Html.BeginForm("save", "insert", FormMethod.Post))
+        {
+        <tr>
+        <td style=" width:200px;">@Html.EditorFor(em=>em.tsengle.id)</td>
+        <td style=" width:200px;">@Html.EditorFor(em=>em.tsengle.name)</td>
+     <td style=" width:200px;">@Html.EditorFor(em=>em.tsengle.lastname)</td>
+       <td style=" width:200px;">@Html.EditorFor(em=>em.tsengle.mark)</td>
+       <td style=" width:200px;">@Html.EditorFor(em=>em.tsengle.attendess)</td>
+       <td style=" width:200px;"><input id="Submit1" type="submit" value="submit" /></td>
+        </tr>
+        }

@@ -1,0 +1,38 @@
+ arvindEntities db;
+        public empController() {
+            db = new arvindEntities();
+        
+        }
+
+        public ActionResult Index()
+        {
+            ViewData["data"] = db.Table1.ToList();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult addemp() {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult addemp(Table1 emp)
+        {
+            db.AddToTable1(emp);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        .................................
+@model MvcApplication6.EF.Table1
+
+
+@using (Html.BeginForm("addemp", "emp", FormMethod.Post))
+    {
+        <table border="3" align="center">
+<tr>
+        <td style=" width:200px; background-color:Silver; color:Aqua;">ID</td>
+         <td style=" width:200px; background-color:Silver; color:Aqua;">@Html.EditorFor(em => em.id)</td>
+         </tr
+..........BUTTON....
+   <input id="Submit1" type="submit" value="save" /></td>
+         </tr>
+        </table>
+    }

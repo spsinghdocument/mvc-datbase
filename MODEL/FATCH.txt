@@ -1,0 +1,36 @@
+                              ...........model.......class..
+
+ public List<Table1> slist { get; set; }
+       public Table1 s { get; set; }
+.....................................................................,,,,,,,,,,controler.....
+        public ActionResult Index()
+        {
+            arvindEntities db = new arvindEntities();
+            sp li = new sp();
+            li.slist = db.Table1.ToList();
+            return View(li);
+        }
+.......................................VIEW......
+@model MvcApplication8.Models.sp
+
+<table>
+       <tr>
+       <th>ID</th>
+       <th>NAME</th>
+       <th>LASTNAME</th>
+       <th>MARK</th>
+       <th>ATTENDESS</th>
+       </tr>
+  
+         @foreach (var e in Model.slist) {
+        
+        <tr>
+        <th style=" width:200px;"> @e.id</th>
+        <td > @e.name</td>
+        <td> @e.lastname</td>
+        <td> @e.mark</td>
+        <td> @e.attendess</td>
+        </tr>
+        }
+       
+       </table>

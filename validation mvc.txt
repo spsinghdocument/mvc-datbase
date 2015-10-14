@@ -1,0 +1,167 @@
+ var priority = $('#txtPriority').val();
+        if (priority == -1) {
+            alert("Please Fill Priority");
+ $('#txtPriority').css("border-color", "Red");
+            return;
+        }
+..........................................................dropdoewnlist....................
+  if (counrty == -1) {
+            alert("Please Fill Country");
+            return;
+        }
+
+...........................................................................Clear....................
+txtdate.value = "";
+...................................................................................................
+
+ ...........................................................WEB SITE......................................
+
+ [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult WEBlvalidate(string websp)
+        {
+
+            string emaill = websp;
+            string msg = "";
+            if (emaill.IndexOf("www") == -1 || emaill.IndexOf(".") == -1 || emaill.IndexOf(".") == -1)
+            {
+
+                msg = "invalid WEBSITE address";
+
+            }
+
+
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+............................................
+ function websitesp() {
+
+        var websp = $('#txtwebsite').val();
+        $.post('/CompanyProfile/WEBlvalidate', { websp: websp }, function (data) { chkwebsp(data); }).error(function (data) { chkwebsp(data); });
+    }
+
+    function chkwebsp(abc) {
+
+        if (abc == "invalid WEBSITE address") {
+
+            alert(abc);
+            return;
+
+        }
+
+    }
+...........
+<input id="txtwebsite" onchange="websitesp();" type="text"  PlaceHolder = "ENTER WEB SITE" />
+...................................................................................................................................EMAIL......................................................................
+
+
+ <input id="txtemailid" onchange = "email()" name="field" type="text" style = "Width:90%; font-size: medium;font-family: 'Arial Narrow';border: 1px solid #c4c4c4;padding: 1px 4px 1px 4px;border-radius: 4px; -moz-border-radius: 4px;-webkit-border-radius: 4px; box-shadow: 0px 0px 8px #d9d9d9;"  PlaceHolder = "ENTER EMAIL-Id" />          
+   .......................................
+ function email() {
+
+        var email_name = $('#txtemailid').val();
+        $.post('/CustomerEntry/Emailvalidate', { email: email_name }, function (data) { chkemail(data); }).error(function (data) { chkemail(data); });
+    }
+
+    function chkemail(abc) {
+
+        if (abc == "Email id Not Valid") {
+
+            alert(abc);
+            return;
+
+        }
+
+    }
+................................
+ [AcceptVerbs(HttpVerbs.Post)]
+  public JsonResult Emailvalidate(string email)
+  {
+      string Msg = "";
+      if (email.Length > 0)
+      {
+
+
+          string s = "[a-z0-9A-z]@[a-zA-z0-9 ]*[.]";
+          string s1 = email;
+          Match aa = Regex.Match(s1, s);
+          if (aa.Success)
+          {
+              Msg = "OK";
+          }
+          else
+          {
+              Msg = "Email id Not Valid";
+          }
+      }
+      return Json(Msg, JsonRequestBehavior.AllowGet);
+  }
+..............................................................................................................................................................MOBILENO,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+  var ContactNo = $('#txtcontactno').val();
+        if (isNaN($('#txtcontactno').val())) {
+            alert("Sim No Should be Numeric....");
+            return;
+        }
+        if ($('#txtcontactno').val() == "") {
+            alert('Plz Enter Contact..');
+            return;
+        }
+        if ($('#txtcontactno').val().length != 10 && $('#txtcontactno').val().length != 0) {
+            alert("Contact No Not vailid");
+            return;
+        }
+...................................................
+ <input id="txtcontactno" maxlength="10" type="text" style = "Width:90%; font-size: medium;font-family: 'Arial Narrow';border: 1px solid #c4c4c4;padding: 1px 4px 1px 4px;border-radius: 4px; -moz-border-radius: 4px;-webkit-border-radius: 4px; box-shadow: 0px 0px 8px #d9d9d9;"  PlaceHolder = "ENTER CONTACT NO." />   
+
+
+....................................................................................or............................................
+
+<input type="text" id="txtmobileno" onchange="Mobile();"  style="width:300px; height:30px; color:gray;" placeholder= "ENTER MOBILE NO" />
+.................................................................
+
+     function Mobile() {
+
+         var mobil = $('#txtmobileno').val();
+         $.post('/contectSP/MOBILEvalidate', { mobil: mobil }, function (data) { chkmobil(data); }).error(function (data) { chkmobil(data); });
+     }
+
+     function chkmobil(abc) {
+
+         if (abc == "MOBILE NO  Not Valid") {
+
+             alert(abc);
+             return;
+
+         }
+
+     }
+.......................................................................................
+
+
+    [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult MOBILEvalidate(string mobil)
+        {
+            string Msg = "";
+            if (mobil.Length > 0)
+            {
+
+
+                string s = "^[0-9]{10}$";
+                string s1 = mobil;
+                Match aa = Regex.Match(s1, s);
+                if (aa.Success)
+                {
+                    Msg = "OK";
+                }
+                else
+                {
+                    Msg = "MOBILE NO  Not Valid";
+                }
+            }
+            return Json(Msg, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+       
+          

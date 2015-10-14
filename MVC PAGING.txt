@@ -1,0 +1,111 @@
+//////////////////////////////////////////////////////////   DataAcess Layer  //////////////////
+
+ public List<PaymentGroupReport> reportdal(string f, string userid, string usertupe, string branchcode, string vdate, int pageIndex)
+        {
+              public List<PaymentGroupReport> ilist = new List<PaymentGroupReport>();
+
+            try
+                {
+
+                    int pagesize = 50;
+                    int pageSkipe = (pageIndex - 1) * pagesize;
+                    PaymentGroupReport EmpGM = new PaymentGroupReport();
+                    EmpGM.EmpList = inv.Paymentsheet(f, usertupe, branchcode, userid, vdate).OrderBy(em=>em.ACCOUNTNO).Skip(pageSkipe).Take(pagesize).ToList();
+                    EmpGM.noofPage = (inv.Paymentsheet(f, usertupe, branchcode, userid, vdate).Count() / pagesize) + 1;
+
+          
+
+                    ilist.Add(EmpGM);
+            }
+                catch
+            {}
+            return ilist.ToList() ;
+        }
+
+
+
+////////////////////////////////////////   classs 
+
+ public class PaymentGroupReport
+   {
+       public List<Paymentsheet_Result> EmpList { get; set; }
+       public int noofPage { get; set; }
+   }
+
+////////////////////////////////////////////////////////////////////////////   Controler   /////////////////////////////////////////////////////////////
+
+
+ public JsonResult paysearch(string f, string userid, string vdate,int pageIndex)           //  int pageIndex
+        {
+            string val = string .Empty;
+
+            if (usertype == "ADMIN")
+            {
+                val = userid ;
+            }
+            else if (usertype == "PARTNER")
+            {
+                val = userid ;
+            }
+           else 
+            {
+                val = sessid ;
+            }
+
+
+
+            return Json(prcls.reportdal(f, val, usertype, branchcode, vdate, pageIndex), JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////  Jquery   
+
+
+ $(document).ready(function () { sp(); });
+
+    function sp() {
+        spp(1);     // MAIN function 1 add
+
+
+
+    }
+    function spp(pageIndex) {     // MAIN function (pageIndex) add
+
+   $.post('/PayMentReport/paysearch', { f: option, userid: strval, vdate: strval, pageIndex: pageIndex }, function (data) { chkhh(data); }).error(function (data) { chkhh(data); });
+    }
+    function chkhh(abc) {
+        
+
+        BuildTable1AccountNo(abc);
+        var cv = abc;
+    };
+    function BuildTable1AccountNo(xyz) {
+         
+ var tab = "";
+        tab += "<table id=tableExel  border='2'>";
+        tab += "<tr>";
+        tab += "<td   style='width:100px;background-color:#33CCFF;color:navy;'> SEARCH </td>";
+        tab += "<td id=spacountnot  style='width:250px;background-color:#33CCFF;color:navy;'> CUSTOMER A/C NO </td>";
+
+ tab += "</tr>";
+        for (var em in xyz[0].EmpList) {       // add  xyz[0].EmpList   OR xyz.EmpList
+ tab += "<tr >";
+tab += "<td class=spacountnotd   style='width:250px;background-color:silver;color:navy;'>" + xyz[0].EmpList[em].ACCOUNTNO + "</td>";  // add  xyz[0].EmpList   OR xyz.EmpList
+               tab += "</tr>";
+            }
+///////////////////////////////////////////////////////////////// PAging Loop
+
+ tab += "<tr >";
+        tab += "<td colspan=6   style='width:250px;background-color:silver;color:navy;'>";
+        for(var i=1;i<=xyz[0].noofPage; i++){
+        tab +="<a href=# onclick ='spp("+ i +")'>"+ i +"</a> &nbsp;";
+        }
+        tab +=" </td>";
+        tab += "</tr>";
+        tab += "</table>";
+        $('#d1').html(tab);
+
+////////////////////////////////////////////////////////////////////////////////////////HTML //////
+<div id-"d1"> <div>

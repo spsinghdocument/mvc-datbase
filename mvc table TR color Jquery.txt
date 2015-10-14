@@ -1,0 +1,6 @@
+ function a() {
+                $("#MyTable tr:even").css("background-color", "#F4F4F8");
+      
+        $("#MyTable tr:odd").css("background-color", "#FFFFE0");
+ 
+    }

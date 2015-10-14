@@ -1,0 +1,48 @@
+ for (var em in xyz) {
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            var MyDate_String_Value = xyz[em].Start_Date
+            var value = new Date
+            (
+                 parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+            );
+            var dat = value.getMonth() +
+                         1 +
+                       "/" +
+           value.getDate() +
+                       "/" +
+           value.getFullYear();
+
+            var MyDate_String_Value = xyz[em].End_Date
+            var value = new Date
+            (
+                 parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+            );
+            var dat1 = value.getMonth() +
+                         1 +
+                       "/" +
+           value.getDate() +
+                       "/" +
+           value.getFullYear();
+
+            var MyDate_String_Value = xyz[em].Sim_Return_Date
+            var value = new Date
+            (
+                 parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+            );
+            var dat2 = value.getMonth() +
+                         1 +
+                       "/" +
+           value.getDate() +
+                       "/" +
+           value.getFullYear();
+            var MyDate_String_Value = xyz[em].Start_Date
+            var value = new Date
+            (
+                 parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+            );
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                tab += "<tr >";
+                tab += "<td class=spCustomerNametd style='width:150px;background-color:silver;color:navy;'>" + xyz[em].Sim_No + "</td>";
+   }

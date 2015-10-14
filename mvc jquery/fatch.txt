@@ -1,0 +1,54 @@
+using MvcApplication12.EF;
+
+ public ActionResult Index()
+        {
+            return View();
+        }
+
+    [OutputCache(Duration=0)]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult Show()
+        {
+            arvindEntities db = new arvindEntities();
+            return Json(db.Table1.ToList(),JsonRequestBehavior.AllowGet);
+        }
+............................................................................................................
+<script type="text/javascript">
+        function sp() {
+            $.get('/Default1/Show', null, function (data) { chk(data); });
+        }
+        function chk(abc) {
+            Grid(abc);
+        };
+       function Grid(xyz) {
+            var tab = "";
+            tab += "<table border='2'>";
+            tab += "<tr>";
+            tab += "<td style='width:100px;background-color:red;color:navy;'> Id</td>";
+            tab += "<td style='width:100px;background-color:red;color:navy;'>Name</td>";
+            tab += "<td style='width:100px;background-color:red;color:navy;'>Lastname</td>";
+            tab += "<td style='width:100px;background-color:red;color:navy;'>MARK</td>";
+            tab += "<td style='width:100px;background-color:red;color:navy;'>ATTENDESS</td>";
+            tab += "<td style='width:100px;background-color:red;color:navy;'>INSERTION</td>";
+            tab += "</tr>";
+            for (var em in xyz) {
+                tab += "<tr>";
+                tab += "<td style='width:100px;background-color:silver;color:navy;'>" + xyz[em].id + "</td>";
+                tab += "<td style='width:100px;background-color:silver;color:navy;'>" + xyz[em].name + "</td>";
+                tab += "<td style='width:100px;background-color:silver;color:navy;'>" + xyz[em].lastname + "</td>";
+                tab += "<td style='width:100px;background-color:silver;color:navy;'>" + xyz[em].mark + "</td>";
+                tab += "<td style='width:100px;background-color:silver;color:navy;'>" + xyz[em].attendess + "</td>";
+                tab += "<td style='width:100px;background-color:silver;color:navy;'></td>";
+                tab += "</tr>";
+            }
+            tab += "</table>";
+            $('#d1').html(tab);
+        }
+    </script>
+..........................................................
+ <div>
+        <input type="button" value="show" onclick="sp();" />
+    </div>
+    <div id="d1">
+   
+    </div>

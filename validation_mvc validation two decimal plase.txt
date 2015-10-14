@@ -1,0 +1,13 @@
+  var Value = $('#cmbvalue').val();
+
+var RE = /^\d*(\.\d{1})?\d{0,1}$/;
+        if (RE.test(Value)) {
+            //return true;
+           
+        }
+
+        else {
+
+            alert('You must include two decimal places');
+            return ;
+        }
