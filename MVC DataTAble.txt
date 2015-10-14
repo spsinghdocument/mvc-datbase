@@ -1,0 +1,101 @@
+http://www.codeproject.com/Tips/692832/Simple-Way-of-Using-SQL-DataTables-to-JSON-in-MVC
+
+
+/////////////////////////////////==============DataAccessLayer
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+
+namespace Practice.Models
+{
+    public class DataAccessLayer
+    {
+        public DataTable GetTable()
+        {
+            DataTable dtTable = new DataTable();
+            dtTable.Columns.Add("UserID", typeof(int));
+            dtTable.Columns.Add("FirstName", typeof(string));
+            dtTable.Columns.Add("LastName", typeof(string));
+
+            dtTable.Rows.Add(25, "Ave", "Maria");
+            dtTable.Rows.Add(50, "Bill", "Doe");
+            dtTable.Rows.Add(75, "John", "Gates");
+            dtTable.Rows.Add(99, "Julia", "Griffith");
+            dtTable.Rows.Add(100, "Mylie", "Spears");
+            return dtTable;
+        }
+
+        public List<Dictionary<string, object>> GetTableRows(DataTable dtData)
+        {
+            List<Dictionary<string, object>>
+            lstRows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> dictRow = null;
+
+            foreach (DataRow dr in dtData.Rows)
+            {
+                dictRow = new Dictionary<string, object>();
+                foreach (DataColumn col in dtData.Columns)
+                {
+                    dictRow.Add(col.ColumnName, dr[col]);
+                }
+                lstRows.Add(dictRow);
+            }
+            return lstRows;
+        }
+    }
+}
+/////////////////////////////////////////////////////////// CONtroler
+      [AcceptVerbs(HttpVerbs.Post)]
+         public JsonResult GetJsonPersons()
+         {
+             DataAccessLayer oDAL = new DataAccessLayer();
+             DataTable dtPersons = oDAL.GetTable();
+             List<Dictionary<string, object>> lstPersons = oDAL.GetTableRows(dtPersons);
+             return Json(lstPersons, JsonRequestBehavior.AllowGet);
+         }
+
+//==========================Client
+         function Tab_fun() {
+
+              $.post('/Admin/GetJsonPersons', null, function (data) { Tbale(data); }).error(function (data) { Tbale(data); });
+          }
+          var GData = null;
+          function Tbale(abc) {
+              debugger;
+            //  GData = abc;
+
+              var table = "<table id=mytab><thead><tr>"
+              + "<th style=background-color:#FAEBD7;width:100px; >UserID</th>"
+             + "<th style=background-color:#FAEBD7;width:100px; >FirstName</th>"
+             + "<th style=background-color:#FAEBD7;width:100px; >LastName</th>"
+           
+           ;
+
+              for (var cd in abc) {
+                  debugger;
+
+                  var row = "<tr >";
+
+
+
+                  row += '<td id=' + i + 'ad   style=background-color:Silver;width:60px; >' + abc[cd].UserID + '</td>';
+                  row += '<td id=' + i + 'an style=background-color:Silver;width:100px; >' + abc[cd].FirstName + '</td>';
+                  row += '<td id=' + i + 'at style=background-color:Silver;width:100px; >' + abc[cd].LastName + '</td>';
+                 
+                  ++i;
+                  row += '</tr>';
+                  table += row;
+              }
+              //=============================================================================================================================
+              row += "</tr>";
+
+
+              //table += row;
+              table += "</tbody></table>";
+              $('#view2').html(table);
+
+              
+
+          };

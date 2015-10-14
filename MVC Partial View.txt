@@ -1,0 +1,9 @@
+ function pv_search2() {
+            //  debugger;
+            $('#d1').load('@Url.Action("Partial2","sp")')
+        }
+//==================
+     public ActionResult Partial2()
+        {
+            return View("Partial2");
+        }
