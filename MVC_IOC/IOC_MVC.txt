@@ -1,0 +1,105 @@
+//////////=======================Bootstrapper Class
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Mvc;
+using WebApplication8.Models;
+using WebApplication8.Controllers; 
+
+namespace WebApplication8
+{
+    public class Bootstrapper
+    {
+        public static IUnityContainer Initialise()
+        {
+            var container = BuildUnityContainer();
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            return container;
+        }
+        private static IUnityContainer BuildUnityContainer()
+        {
+            var container = new UnityContainer();
+
+            // register all your components with the container here  
+            //This is the important line to edit  
+            container.RegisterType<ICompanyRepository, CompanyRepository>();
+
+
+            RegisterTypes(container);
+            return container;
+        }
+        public static void RegisterTypes(IUnityContainer container)
+        {
+
+        }
+    }  
+}
+//================================interface
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WebApplication8.Models
+{
+  public  interface ICompanyRepository
+    {
+       // IEnumerable<Company> GetAll();
+        string Gete();
+   
+    }
+}
+//=================CompanyRepository Class (DataAccessLayer)---------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace WebApplication8.Models
+{
+    public class CompanyRepository : ICompanyRepository
+    {
+     public string Gete()
+        {
+            return "Saurabh pratap singh";
+        }
+    }
+}
+//==========================Controller ==========
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebApplication8.Models;
+
+namespace WebApplication8.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ICompanyRepository settingsManager;
+        public HomeController(ICompanyRepository settingsManager)
+        {
+          
+            this.settingsManager = settingsManager;
+        }
+       
+        public ActionResult Index()
+        {
+            var data = settingsManager.Gete();
+            return View();
+        }
+}
+}
+//=========================================== Global.cs-----------------------------------
+
+
+  protected void Application_Start()
+        {
+           
+            Bootstrapper.Initialise();
+        }
