@@ -1,0 +1,37 @@
+================Web.config-----------------   <system.web>
+    <customErrors mode="On" ></customErrors>
+
+-----------View-------
+Views--new folder ----(Shared)  ---- Error ----Error.cshtml
+----
+@model HandleErrorInfo
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <div>
+        @Model.ControllerName <br />
+        @Model.ActionName<br />
+        @Model.Exception
+    </div>
+</body>
+</html>
+------------------  Cotriller.cs
+
+        [HandleError]
+    public class spController : Controller
+    {
+ public ActionResult Index()
+        
+        {
+
+            string ab = "Arif";
+            int x = Convert.ToInt32(ab);
+            return View();
+        }
+} 

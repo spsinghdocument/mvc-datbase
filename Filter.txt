@@ -1,0 +1,30 @@
+---------------WebConfig---------------
+ <system.web>-----------
+
+
+ <caching>
+      <outputCacheSettings>
+        <outputCacheProfiles>
+          <add name="abc" duration="20" location="Server"   />
+          <add name="abc1" duration="5" location="Client" varyByParam="EmpId"  />
+          <add name="abc2" duration="5" location="Client" varyByParam="EmpId"  />
+          <add name="abc3" duration="5" location="Client" varyByParam="EmpId"  />
+          <add name="abc4" duration="5" location="Client" varyByParam="EmpId"  />
+          <add name="abc5" duration="5" location="Client" varyByParam="EmpId"  />
+          <add name="abc6" duration="5" location="Client" varyByParam="EmpId"  />
+        </outputCacheProfiles>
+      </outputCacheSettings>
+    </caching>
+
+------------- Controller.cs-----
+
+   //  [OutputCache(Duration = 20, Location = OutputCacheLocation.Server)]
+               // [OutputCache(Duration = 20, Location = OutputCacheLocation.ServerAndClient)]
+        //[OutputCache(Duration = 5, VaryByParam = "EmpId",Location=OutputCacheLocation.Client)]
+                [OutputCache(CacheProfile = "abc")]
+        [AcceptVerbs(HttpVerbs.Post)]
+
+ public JsonResult AutocompleteSaerchitemname()
+        {
+            return Json("ss", JsonRequestBehavior.AllowGet);
+        }
