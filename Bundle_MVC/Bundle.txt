@@ -1,0 +1,40 @@
+//========================(App_Start)   Class   (BundleConfig)=============
+
+
+using System.Web;
+using System.Web.Optimization;
+
+  public class BundleConfig
+    {
+ public static void RegisterBundles(BundleCollection bundles)
+        {
+  bundles.Add(new ScriptBundle("~/bundles/Angular").Include(
+                        "~/Scripts/angular.js"));
+
+
+// css
+
+ bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+}
+}
+//====================================Global.cs========
+  BundleConfig.RegisterBundles(BundleTable.Bundles);
+//======================Lay ouut //  or  //  html
+
+ @Styles.Render("~/Content/css")
+
+
+ @Scripts.Render("~/bundles/Angular")
+
+
+//========  OR
+
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/Angular");
+
+
+
+
+
+
